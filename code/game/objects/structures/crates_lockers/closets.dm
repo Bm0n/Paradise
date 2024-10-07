@@ -49,8 +49,8 @@
 // This is called on Initialize to add contents on the tile
 /obj/structure/closet/proc/take_contents()
 	var/itemcount = 0
-	for(var/obj/item/I in loc)
-		if(I.density || I.anchored || I == src) continue
+	for(var/obj/I in loc)
+		if(I == src) continue
 		I.forceMove(src)
 		// Ensure the storage cap is respected
 		if(++itemcount >= storage_capacity)
