@@ -40,13 +40,13 @@
 			if(M)
 				client.holder.show_player_panel(M)
 			return
-		if(modifiers["shift"] && modifiers["middle"])
+		if(modifiers["alt"] && modifiers["middle"])
 			M = get_mob_in_atom_with_warning(A)
 			if(M)
 				client.freeze(M)
 			return
-	if(modifiers["middle"])
-		MiddleClickOn(A)
+	if(modifiers["shift"] && modifiers["middle"])
+		MiddleShiftClickOn(A)
 		return
 	if(modifiers["shift"])
 		ShiftClickOn(A)
@@ -72,6 +72,7 @@
 	return
 
 /mob/dead/observer/MiddleShiftClickOn(atom/A)
+	pointed(A)
 	return
 
 /mob/dead/observer/MiddleShiftControlClickOn(atom/A)
