@@ -66,6 +66,9 @@
 	if(IsFrozen(A) && !is_admin(usr))
 		to_chat(usr, "<span class='boldannounceic'>Interacting with admin-frozen players is not permitted.</span>")
 		return
+	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"] && modifiers["alt"])
+		MiddleShiftControlAltClickOn(A)
+		return
 	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"])
 		MiddleShiftControlClickOn(A)
 		return
@@ -294,7 +297,7 @@
 	Only used for swapping hands
 */
 /mob/proc/MiddleClickOn(atom/A)
-	pointed(A)
+	swap_hand(A)
 	return
 
 // See click_override.dm
@@ -307,15 +310,22 @@
 	else
 		..()
 
-
 /*
 	Middle shift-click
-	Makes the mob face the direction of the clicked thing
+	Used for pointing
 */
 /mob/proc/MiddleShiftClickOn(atom/A)
+	pointed(A)
 	return
 
-/mob/living/MiddleShiftClickOn(atom/A)
+/*
+	Middle shift-control-click
+	Makes the mob face the direction of the clicked thing
+*/
+/mob/proc/MiddleShiftControlClickOn(atom/A)
+	return
+
+/mob/living/MiddleShiftControlClickOn(atom/A)
 	if(incapacitated())
 		return
 	var/face_dir = get_cardinal_dir(src, A)
@@ -325,13 +335,13 @@
 	set_forced_look(A, FALSE)
 
 /*
-	Middle shift-control-click
+	Middle shift-control-alt-click
 	Makes the mob constantly face the object (until it's out of sight)
 */
-/mob/proc/MiddleShiftControlClickOn(atom/A)
+/mob/proc/MiddleShiftControlAltClickOn(atom/A)
 	return
 
-/mob/living/MiddleShiftControlClickOn(atom/A)
+/mob/living/MiddleShiftControlAltClickOn(atom/A)
 	if(incapacitated())
 		return
 	var/face_uid = A.UID()
